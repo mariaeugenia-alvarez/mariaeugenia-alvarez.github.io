@@ -3,7 +3,7 @@ export const SITE = {
   name: 'Maria Eugenia',
   role: 'Ingeniera de IA',
   description:
-    'Ingeniera de IA. Implemento sistemas de IA con desarrollo propio o integrando herramientas de terceros. Con rigor y sin humo.',
+    'Ingeniera de IA. No todo se soluciona con IA: saber cuándo usarla y cómo es mi trabajo.',
 };
 
 // Todas las secciones previstas. Solo las que tienen enabled: true

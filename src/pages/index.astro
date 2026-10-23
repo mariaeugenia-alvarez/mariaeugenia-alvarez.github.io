@@ -10,8 +10,8 @@ const fmt = new Intl.DateTimeFormat('es-ES', { day: 'numeric', month: 'short', y
 <Base>
   <section class="container hero">
     <span class="label">Ingeniera de IA</span>
-    <h1>IA que funciona, y cuándo <span class="destacado">depende</span></h1>
-    <p class="bio">Implemento sistemas de IA con desarrollo propio o integrando herramientas de terceros. Con rigor y sin humo.</p>
+    <h1>No todo se soluciona con IA. Saber <span class="destacado">cuándo</span> usarla y cómo, es mi trabajo.</h1>
+    <p class="bio">Implemento sistemas de IA con desarrollo propio o integrando herramientas de terceros.</p>
     {latest && <a class="btn btn-primario" href={`/transversales/${latest.id}/`}>Leer el último artículo</a>}
   </section>
 
@@ -26,7 +26,7 @@ const fmt = new Intl.DateTimeFormat('es-ES', { day: 'numeric', month: 'short', y
 
 <style>
   .hero { padding-block: var(--space-16) var(--space-12); display: grid; justify-items: start; gap: var(--space-4); }
-  .hero h1 { margin: 0; max-width: 16ch; }
+  .hero h1 { margin: 0; max-width: 22ch; }
   .bio { font-size: var(--fs-body-lg); color: var(--color-text-secondary); max-width: 40ch; margin: 0 0 var(--space-4); }
 
   .latest { padding-block: var(--space-8); border-top: 1px solid var(--color-border); }
