@@ -1,0 +1,31 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('transversales', ({ data }) => import.meta.env.DEV || !data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const fmt = new Intl.DateTimeFormat('es-ES', { day: 'numeric', month: 'short', year: 'numeric' });
+---
+<Base title={post.data.title} description={post.data.description}>
+  <article class="container">
+    <header class="post-head">
+      <span class="label"><a href="/transversales/">Transversales</a> · <time class="dato" datetime={post.data.date.toISOString()}>{fmt.format(post.data.date)}</time></span>
+      <h1>{post.data.title}</h1>
+      <p class="dek">{post.data.description}</p>
+    </header>
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+</Base>
+
+<style>
+  .post-head { max-width: 65ch; margin: 0 auto; padding-block: var(--space-16) var(--space-4); }
+  .post-head h1 { margin: var(--space-3) 0 var(--space-4); }
+  .dek { font-size: var(--fs-body-lg); color: var(--color-text-secondary); margin: 0; }
+</style>

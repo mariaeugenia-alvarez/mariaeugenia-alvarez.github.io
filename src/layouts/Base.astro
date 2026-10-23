@@ -1,0 +1,98 @@
+---
+import '../styles/site.css';
+import { SITE, NAV } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description = SITE.description } = Astro.props;
+const fullTitle = title ? `${title} · ${SITE.name}` : `${SITE.name} · ${SITE.role}`;
+const path = Astro.url.pathname;
+
+const nav = NAV.filter((item) => item.enabled);
+const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={new URL(path, Astro.site)} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={new URL(path, Astro.site)} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="/brand.css" />
+  </head>
+  <body>
+    <header class="container site-header">
+      <a class="brand" href="/">{SITE.name}</a>
+      <nav aria-label="Principal">
+        {nav.map((item) => (
+          <a
+            href={item.href}
+            class:list={[{ destacado: item.destacado }]}
+            aria-current={isActive(item.href) ? 'page' : undefined}
+          >{item.label}</a>
+        ))}
+      </nav>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <span>{SITE.name} · {SITE.role}</span>
+        <span class="dato">© {new Date().getFullYear()}</span>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .site-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-4) var(--space-8);
+    flex-wrap: wrap;
+    padding-block: var(--space-6);
+  }
+  .brand {
+    font-family: var(--font-titulos);
+    font-size: var(--fs-h4);
+    font-weight: 500;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+  nav { display: flex; gap: var(--space-6); flex-wrap: wrap; }
+  nav a { color: var(--color-text); text-decoration: none; font-size: 0.9375rem; }
+  nav a:hover, nav a[aria-current='page'], nav a.destacado { color: var(--color-link); }
+  nav a[aria-current='page'] { text-decoration: underline; text-underline-offset: 0.35em; }
+
+  main { min-height: 60vh; }
+
+  /* Pie en tinta con texto arena y enlaces en oro (BRAND.md §5) */
+  .site-footer {
+    margin-top: var(--space-16);
+    background: var(--tinta);
+    color: var(--arena);
+    font-size: 0.875rem;
+  }
+  .site-footer :global(a) { color: var(--oro); }
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+    padding-block: var(--space-8);
+  }
+</style>

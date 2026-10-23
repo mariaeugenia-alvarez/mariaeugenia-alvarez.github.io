@@ -1,0 +1,88 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('transversales', ({ data }) => import.meta.env.DEV || !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const fmt = new Intl.DateTimeFormat('es-ES', { day: 'numeric', month: 'short', year: 'numeric' });
+---
+<Base
+  title="Transversales"
+  description="Transversales: modelos mentales de otros ámbitos que acaban en un patrón aplicable a construir software y sistemas agénticos."
+>
+  <section class="container intro">
+    <span class="label">Transversales</span>
+    <h1>Ideas de otros campos que acaban en el <span class="destacado">software</span></h1>
+    <p class="lead">
+      Transversales es mi espacio de artículos sobre modelos mentales: formas de pensar que vienen de otros
+      ámbitos y que, bien entendidas, sirven para tomar mejores decisiones al construir software y sistemas agénticos.
+    </p>
+  </section>
+
+  <section class="container incluye" aria-labelledby="incluye-title">
+    <h2 id="incluye-title" class="label">Qué incluye cada artículo</h2>
+    <ol>
+      <li>
+        <span class="num dato">01</span>
+        <h3>Un modelo mental</h3>
+        <p>Una idea concreta, explicada sin jerga y con un caso real.</p>
+      </li>
+      <li>
+        <span class="num dato">02</span>
+        <h3>De qué depende</h3>
+        <p>En qué contexto funciona, en cuál no y qué límites tiene.</p>
+      </li>
+      <li>
+        <span class="num dato">03</span>
+        <h3>El patrón aplicable</h3>
+        <p>Cómo se traduce a software y a sistemas agénticos. Todo artículo termina aquí.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="container lista" aria-labelledby="lista-title">
+    <h2 id="lista-title" class="label">Artículos</h2>
+    {posts.length === 0 ? (
+      <p class="vacio">El primer artículo está en preparación.</p>
+    ) : (
+      <ul>
+        {posts.map((post) => (
+          <li>
+            <span class="label dato">{fmt.format(post.data.date)}{post.data.draft && ' · borrador'}</span>
+            <h3><a href={`/transversales/${post.id}/`}>{post.data.title}</a></h3>
+            <p>{post.data.description}</p>
+          </li>
+        ))}
+      </ul>
+    )}
+  </section>
+</Base>
+
+<style>
+  .intro { padding-block: var(--space-16) var(--space-12); display: grid; justify-items: start; gap: var(--space-4); }
+  .intro h1 { margin: 0; max-width: 18ch; }
+  .lead { font-size: var(--fs-body-lg); color: var(--color-text-secondary); max-width: 52ch; margin: 0; }
+
+  .incluye { padding-block: var(--space-8) var(--space-12); }
+  .incluye ol {
+    list-style: none; padding: 0; margin: var(--space-6) 0 0;
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-8);
+  }
+  .incluye li { border-top: 1px solid var(--color-border); padding-top: var(--space-4); }
+  .num { display: block; font-size: var(--fs-h4); color: var(--color-brand); line-height: 1; margin-bottom: var(--space-3); }
+  .incluye h3 { font-size: var(--fs-h4); margin: 0 0 var(--space-2); }
+  .incluye p { margin: 0; color: var(--color-text-secondary); }
+
+  .lista { padding-block: var(--space-8) 0; }
+  .lista ul { list-style: none; padding: 0; margin: var(--space-4) 0 0; }
+  .lista li { padding-block: var(--space-6); border-top: 1px solid var(--color-border); }
+  .lista h3 { font-size: var(--fs-h3); margin: var(--space-2) 0; }
+  .lista h3 a { color: var(--color-text); text-decoration: none; }
+  .lista h3 a:hover { color: var(--color-link); }
+  .lista li p { margin: 0; max-width: 65ch; color: var(--color-text-secondary); }
+  .vacio { color: var(--color-text-secondary); margin: var(--space-4) 0 0; }
+
+  @media (max-width: 720px) {
+    .incluye ol { grid-template-columns: 1fr; gap: var(--space-6); }
+  }
+</style>

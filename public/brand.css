@@ -1,0 +1,176 @@
+/* =========================================================
+   Kit de marca · Maria Eugenia Álvarez · v1.0 (23 oct 2026)
+   Generado a partir de brand.tokens.json. Sin dependencias.
+   Uso: <link rel="stylesheet" href="brand.css"> y clases/variables abajo.
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Geist:wght@400;500&family=Geist+Mono&display=swap');
+
+:root {
+  /* Primitivos */
+  --papel: #F4EEE4;
+  --tinta: #2B211C;
+  --noche: #1C1A17;
+  --terracota: #C4471F;
+  --terracota-texto: #A63A17;
+  --oro: #E0C068;
+  --oro-viejo: #C9A24A;
+  --oro-brillo: #F3DE9A;
+  --arena: #E3C29B;
+  --oliva: #4A4A22;
+  --oliva-clara: #B5B07A;
+
+  /* Degradados */
+  --grad-campo: linear-gradient(180deg, var(--oliva) 0%, var(--oliva-clara) 100%);
+  --oro-metalico: linear-gradient(100deg, var(--oro-viejo) 0%, var(--oro-brillo) 35%, var(--oro) 55%, var(--oro-viejo) 100%);
+
+  /* Tipografía */
+  --font-titulos: 'Newsreader', Georgia, serif;
+  --font-cuerpo: 'Geist', system-ui, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, monospace;
+
+  --fs-h1: 3.052rem;   /* 49 px */
+  --fs-h2: 2.441rem;   /* 39 px */
+  --fs-h3: 1.953rem;   /* 31 px */
+  --fs-h4: 1.563rem;   /* 25 px */
+  --fs-body-lg: 1.25rem;
+  --fs-body: 1rem;
+  --fs-label: 0.75rem;
+
+  --lh-heading: 1.1;
+  --lh-body: 1.6;
+  --ls-label: 0.08em;
+
+  /* Espaciado (4 px) y radios */
+  --space-1: .25rem; --space-2: .5rem; --space-3: .75rem; --space-4: 1rem;
+  --space-6: 1.5rem; --space-8: 2rem; --space-12: 3rem; --space-16: 4rem;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+
+  /* Semánticos · modo claro */
+  --color-bg: var(--papel);
+  --color-surface: var(--arena);
+  --color-text: var(--tinta);
+  --color-text-secondary: var(--oliva);
+  --color-brand: var(--terracota);
+  --color-link: var(--terracota-texto);
+  --color-accent: var(--oro);
+  --color-on-accent: var(--tinta);
+  --color-action: var(--oliva);
+  --color-on-action: var(--papel);
+  --color-label: var(--terracota-texto);
+  --color-border: rgba(43, 33, 28, .15);
+
+  color-scheme: light;
+}
+
+/* Modo oscuro: sigue al sistema salvo que se fuerce data-theme="light" */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-bg: var(--noche);
+    --color-surface: var(--tinta);
+    --color-text: var(--papel);
+    --color-text-secondary: var(--arena);
+    --color-brand: var(--oro);
+    --color-link: var(--oro);
+    --color-accent: var(--oro);
+    --color-on-accent: var(--tinta);
+    --color-action: var(--oro);
+    --color-on-action: var(--tinta);
+    --color-label: var(--oliva-clara);
+    --color-border: rgba(244, 238, 228, .15);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --color-bg: var(--noche);
+  --color-surface: var(--tinta);
+  --color-text: var(--papel);
+  --color-text-secondary: var(--arena);
+  --color-brand: var(--oro);
+  --color-link: var(--oro);
+  --color-accent: var(--oro);
+  --color-on-accent: var(--tinta);
+  --color-action: var(--oro);
+  --color-on-action: var(--tinta);
+  --color-label: var(--oliva-clara);
+  --color-border: rgba(244, 238, 228, .15);
+  color-scheme: dark;
+}
+
+/* ---------- Base ---------- */
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-cuerpo);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4 {
+  font-family: var(--font-titulos);
+  line-height: var(--lh-heading);
+  margin: 0 0 var(--space-4);
+}
+h1 { font-size: var(--fs-h1); font-weight: 500; }
+h2 { font-size: var(--fs-h2); font-weight: 500; }
+h3 { font-size: var(--fs-h3); font-weight: 400; }
+h4 { font-size: var(--fs-h4); font-weight: 400; }
+a  { color: var(--color-link); text-underline-offset: .2em; }
+code, pre, kbd { font-family: var(--font-mono); }
+
+/* Móvil: escala reducida para titulares */
+@media (max-width: 640px) {
+  h1 { font-size: 2.25rem; }
+  h2 { font-size: 1.85rem; }
+  h3 { font-size: 1.5rem; }
+}
+
+/* ---------- Componentes de marca ---------- */
+
+/* Etiqueta mono en mayúsculas: "01 / CASOS" */
+.label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--color-label);
+}
+
+/* Palabra destacada en el titular ("depende") */
+.destacado { color: var(--color-brand); }
+
+/* Texto con brillo oro metálico: solo texto grande o sobre oscuro/oliva */
+.texto-oro {
+  background: var(--oro-metalico);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Botones */
+.btn {
+  display: inline-block;
+  font-family: var(--font-cuerpo);
+  font-weight: 500;
+  font-size: .875rem;
+  padding: .6rem 1.1rem;
+  border-radius: var(--radius-sm);
+  border: 0;
+  text-decoration: none;
+  cursor: pointer;
+}
+.btn-primario { background: var(--color-action); color: var(--color-on-action); }
+.btn-oro      { background: var(--oro-metalico); color: var(--tinta); }
+.btn-borde    { background: transparent; color: var(--color-text); box-shadow: inset 0 0 0 1px var(--color-border); }
+.btn:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+
+/* Superficies */
+.bloque-arena { background: var(--arena); color: var(--tinta); border-radius: var(--radius-md); }
+.bloque-terracota { background: var(--terracota); color: var(--papel); border-radius: var(--radius-md); } /* solo texto 24 px+ dentro */
+.seccion-campo { background: var(--grad-campo); color: var(--papel); }
+.seccion-campo .label { color: var(--oro); } /* oro sobre oliva 5.2:1; colocar en la mitad superior (oliva) */
+.seccion-campo .tarjeta .label { color: var(--terracota-texto); }
+.tarjeta { background: var(--papel); color: var(--tinta); border-radius: var(--radius-md); padding: var(--space-4); }
+.panel-noche { background: var(--noche); color: var(--papel); border-radius: var(--radius-md); }

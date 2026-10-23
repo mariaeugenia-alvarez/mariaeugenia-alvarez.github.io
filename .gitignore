@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.astro/
+.DS_Store
+
+# Kit de marca: referencia privada, no se publica en el repo
+brand/
