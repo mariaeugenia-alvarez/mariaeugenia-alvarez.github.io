@@ -10,6 +10,10 @@ const transversales = defineCollection({
     description: z.string(),
     date: z.coerce.date(),
     draft: z.boolean().default(false),
+    // Imagen para la tarjeta del listado y para compartir en redes (ruta dentro de public/)
+    thumbnail: z.string().optional(),
+    // Publicado como adelanto: se ve la página, marcada como "En preparación"
+    enPreparacion: z.boolean().default(false),
   }),
 });
 

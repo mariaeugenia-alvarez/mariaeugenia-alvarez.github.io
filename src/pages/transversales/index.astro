@@ -1,20 +1,10 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { getCollection } from 'astro:content';
-import BombillasIdeas from '../../components/BombillasIdeas.astro';
 
 const posts = (await getCollection('transversales', ({ data }) => import.meta.env.DEV || !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 const fmt = new Intl.DateTimeFormat('es-ES', { day: 'numeric', month: 'short', year: 'numeric' });
-
-// Adelanto del primer artículo mientras se escribe (etapas de la cabecera interactiva)
-const ETAPAS = [
-  { t: 'Entender', d: 'Averiguar qué hay y para qué importa.' },
-  { t: 'Acotar', d: 'Definir qué puedes hacer y qué no, y cuáles serán tus criterios.' },
-  { t: 'Elegir', d: 'Lo que optimice tu resultado en base a tu contorno actual.' },
-  { t: 'Probar', d: 'Registrar el antes y el después. Lo que no se mide no se puede controlar.' },
-  { t: 'Aprender', d: 'Lo que salió bien, pero sobre todo lo que salió mal.' },
-];
 ---
 <Base
   title="Transversales"
@@ -53,31 +43,24 @@ const ETAPAS = [
   <section class="container lista" aria-labelledby="lista-title">
     <h2 id="lista-title" class="label">Artículos</h2>
     {posts.length === 0 ? (
-      <article class="adelanto">
-        <span class="label">Primer artículo · En preparación</span>
-        <p class="entradilla">
-          Cómo pasa una idea de la intuición al aprendizaje en cinco etapas, y por qué lo que aprendes al final
-          se convierte en el punto de partida de la siguiente vuelta. Mueve la línea para recorrerlas.
-        </p>
-        <BombillasIdeas />
-        <p class="label estructura">Estructura del artículo</p>
-        <ol class="etapas">
-          {ETAPAS.map((e, i) => (
-            <li>
-              <span class="num dato">{String(i + 1).padStart(2, '0')}</span>
-              <h4>{e.t}</h4>
-              <p>{e.d}</p>
-            </li>
-          ))}
-        </ol>
-      </article>
+      <p class="vacio">El primer artículo está en preparación.</p>
     ) : (
-      <ul>
+      <ul class="tarjetas">
         {posts.map((post) => (
           <li>
-            <span class="label dato">{fmt.format(post.data.date)}{post.data.draft && ' · borrador'}</span>
-            <h3><a href={`/transversales/${post.id}/`}>{post.data.title}</a></h3>
-            <p>{post.data.description}</p>
+            <a class="tarjeta-articulo" href={`/transversales/${post.id}/`}>
+              {post.data.thumbnail && (
+                <img src={post.data.thumbnail} alt="" width="1200" height="630" loading="lazy" decoding="async" />
+              )}
+              <span class="texto">
+                <span class="label">
+                  {post.data.enPreparacion ? 'En preparación' : <span class="dato">{fmt.format(post.data.date)}</span>}
+                  {post.data.draft && ' · borrador'}
+                </span>
+                <span class="titulo">{post.data.title}</span>
+                <span class="desc">{post.data.description}</span>
+              </span>
+            </a>
           </li>
         ))}
       </ul>
@@ -101,26 +84,24 @@ const ETAPAS = [
   .incluye p { margin: 0; color: var(--color-text-secondary); }
 
   .lista { padding-block: var(--space-8) 0; }
-  .lista ul { list-style: none; padding: 0; margin: var(--space-4) 0 0; }
-  .lista li { padding-block: var(--space-6); border-top: 1px solid var(--color-border); }
-  .lista h3 { font-size: var(--fs-h3); margin: var(--space-2) 0; }
-  .lista h3 a { color: var(--color-text); text-decoration: none; }
-  .lista h3 a:hover { color: var(--color-link); }
-  .lista li p { margin: 0; max-width: 65ch; color: var(--color-text-secondary); }
-  .adelanto { margin-top: var(--space-4); padding-top: var(--space-6); border-top: 1px solid var(--color-border); }
-  .entradilla { font-size: var(--fs-body-lg); color: var(--color-text-secondary); max-width: 60ch; margin: var(--space-3) 0 0; }
-  .etapas {
-    list-style: none; padding: 0; margin: var(--space-4) 0 0;
-    display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--space-6);
+  .vacio { color: var(--color-text-secondary); margin: var(--space-4) 0 0; }
+  .tarjetas { list-style: none; padding: 0; margin: var(--space-4) 0 0; display: grid; gap: var(--space-6); }
+  .tarjeta-articulo {
+    display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: var(--space-8); align-items: center;
+    padding-top: var(--space-6); border-top: 1px solid var(--color-border);
+    color: var(--color-text); text-decoration: none;
   }
-  .etapas li { border-top: 1px solid var(--color-border); padding-top: var(--space-3); }
-  .etapas .num { font-size: var(--fs-h4); }
-  .etapas h4 { font-size: var(--fs-body-lg); margin: 0 0 var(--space-1); }
-  .etapas p { margin: 0; font-size: 0.9375rem; color: var(--color-text-secondary); }
-  .estructura { margin: 0; }
-  @media (max-width: 900px) { .etapas { grid-template-columns: 1fr; gap: var(--space-4); } }
+  .tarjeta-articulo img {
+    width: 100%; height: auto; aspect-ratio: 1200 / 630; object-fit: cover;
+    border-radius: var(--radius-md); display: block; background: var(--noche);
+  }
+  .texto { display: grid; gap: var(--space-2); min-width: 0; }
+  .titulo { font-family: var(--font-titulos); font-size: var(--fs-h3); font-weight: 500; line-height: var(--lh-heading); }
+  .tarjeta-articulo:hover .titulo { color: var(--color-link); }
+  .desc { color: var(--color-text-secondary); max-width: 55ch; }
 
   @media (max-width: 720px) {
     .incluye ol { grid-template-columns: 1fr; gap: var(--space-6); }
+    .tarjeta-articulo { grid-template-columns: 1fr; gap: var(--space-4); }
   }
 </style>

@@ -5,9 +5,10 @@ import { SITE, NAV } from '../data/site';
 interface Props {
   title?: string;
   description?: string;
+  image?: string;
 }
 
-const { title, description = SITE.description } = Astro.props;
+const { title, description = SITE.description, image } = Astro.props;
 const fullTitle = title ? `${title} · ${SITE.name}` : `${SITE.name} · ${SITE.role}`;
 const path = Astro.url.pathname;
 
@@ -26,6 +27,8 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={new URL(path, Astro.site)} />
+    {image && <meta property="og:image" content={new URL(image, Astro.site)} />}
+    {image && <meta name="twitter:card" content="summary_large_image" />}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="/brand.css" />

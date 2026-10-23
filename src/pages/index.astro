@@ -12,12 +12,12 @@ const fmt = new Intl.DateTimeFormat('es-ES', { day: 'numeric', month: 'short', y
     <span class="label">Ingeniera de IA</span>
     <h1>No todo se soluciona con IA. Saber <span class="destacado">cuándo</span> usarla y <span class="destacado">cómo</span>, es mi trabajo.</h1>
     <p class="bio">Implemento sistemas de IA con desarrollo propio o integrando herramientas de terceros.</p>
-    {latest && <a class="btn btn-primario" href={`/transversales/${latest.id}/`}>Leer el último artículo</a>}
+    {latest && !latest.data.enPreparacion && <a class="btn btn-primario" href={`/transversales/${latest.id}/`}>Leer el último artículo</a>}
   </section>
 
   {latest && (
     <section class="container latest" aria-labelledby="latest-title">
-      <span class="label">Último en Transversales · <span class="dato">{fmt.format(latest.data.date)}</span></span>
+      <span class="label">Último en Transversales · {latest.data.enPreparacion ? 'En preparación' : <span class="dato">{fmt.format(latest.data.date)}</span>}</span>
       <h2 id="latest-title"><a href={`/transversales/${latest.id}/`}>{latest.data.title}</a></h2>
       <p>{latest.data.description}</p>
     </section>
