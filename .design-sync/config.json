@@ -1,0 +1,35 @@
+{
+  "projectId": "f5712a87-5de1-426c-a3d5-7af496126776",
+  "pkg": "mariaeugenia-ui",
+  "globalName": "MariaEugeniaUI",
+  "shape": "package",
+  "buildCmd": "cd design-system && npm ci && npm run build",
+  "cssEntry": "dist/styles.css",
+  "docsMap": {
+    "Label": "../.design-sync/groups/kit.md",
+    "Destacado": "../.design-sync/groups/kit.md",
+    "TextoOro": "../.design-sync/groups/kit.md",
+    "Dato": "../.design-sync/groups/kit.md",
+    "Button": "../.design-sync/groups/kit.md",
+    "Surface": "../.design-sync/groups/kit.md",
+    "Container": "../.design-sync/groups/sitio.md",
+    "Prose": "../.design-sync/groups/sitio.md",
+    "SiteHeader": "../.design-sync/groups/sitio.md",
+    "SiteFooter": "../.design-sync/groups/sitio.md",
+    "Hero": "../.design-sync/groups/sitio.md",
+    "LatestPost": "../.design-sync/groups/sitio.md",
+    "FeatureSteps": "../.design-sync/groups/sitio.md",
+    "ArticleCard": "../.design-sync/groups/sitio.md",
+    "PostHeader": "../.design-sync/groups/sitio.md",
+    "BombillasIdeas": "../.design-sync/groups/interactivo.md"
+  },
+  "dtsPropsFor": {
+    "Button": "/** `primario` (oliva en claro, oro en oscuro), `oro` (degradado metálico) o `borde` (transparente con filete). Por defecto `primario`. */ variant?: 'primario' | 'oro' | 'borde'; children: React.ReactNode; /** Con href se renderiza como <a>; sin él, como <button>. */ href?: string; target?: string; rel?: string; type?: 'button' | 'submit' | 'reset'; disabled?: boolean; onClick?: React.MouseEventHandler<HTMLElement>; 'aria-label'?: string; className?: string;"
+  },
+  "overrides": {
+    "TextoOro": {
+      "cardMode": "column"
+    }
+  },
+  "readmeHeader": ".design-sync/conventions.md"
+}
