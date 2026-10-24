@@ -14,5 +14,12 @@ export const NAV = [
   { href: '/sobre-mi/', label: 'Sobre mí', enabled: false },
   { href: '/charlas/', label: 'Charlas', enabled: false },
   { href: '/transversales/', label: 'Transversales', enabled: true },
-  { href: '/contacto/', label: 'Contacto', enabled: false, destacado: true },
+  { href: '/contacto/', label: 'Contacto', enabled: true, destacado: true },
+];
+
+// Vías de contacto: página /contacto/ y pie de todas las páginas.
+export const CONTACTO = [
+  { label: 'Email', value: 'mariaeu.alvarez@gmail.com', href: 'mailto:mariaeu.alvarez@gmail.com' },
+  { label: 'LinkedIn', value: 'maria-eugenia-alvarez-llm-ia', href: 'https://www.linkedin.com/in/maria-eugenia-alvarez-llm-ia/' },
+  { label: 'GitHub', value: 'mariaeugenia-alvarez', href: 'https://github.com/mariaeugenia-alvarez' },
 ];

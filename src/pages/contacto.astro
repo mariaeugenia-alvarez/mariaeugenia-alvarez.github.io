@@ -1,0 +1,43 @@
+---
+import Base from '../layouts/Base.astro';
+import { CONTACTO } from '../data/site';
+---
+<Base
+  title="Contacto"
+  description="Contacto: escríbeme por email o encuéntrame en LinkedIn y GitHub."
+>
+  <section class="container intro">
+    <span class="label">Contacto</span>
+    <h1>Primero entender tu <span class="destacado">problema</span>, luego vemos juntos si la IA es la respuesta.</h1>
+    <p class="lead">Implemento sistemas de IA con desarrollo propio o integrando herramientas de terceros.</p>
+  </section>
+
+  <section class="container vias" aria-label="Vías de contacto">
+    <ul>
+      {CONTACTO.map((c) => (
+        <li>
+          <span class="label">{c.label}</span>
+          <a class="dato" href={c.href} {...(c.href.startsWith('http') ? { rel: 'me noopener' } : {})}>{c.value}</a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</Base>
+
+<style>
+  .intro { padding-block: var(--space-16) var(--space-12); display: grid; justify-items: start; gap: var(--space-4); }
+  .intro h1 { margin: 0; max-width: 20ch; }
+  .lead { font-size: var(--fs-body-lg); color: var(--color-text-secondary); max-width: 45ch; margin: 0; }
+
+  .vias ul { list-style: none; padding: 0; margin: 0; display: grid; }
+  .vias li {
+    display: grid; grid-template-columns: 8rem minmax(0, 1fr); gap: var(--space-4); align-items: baseline;
+    padding-block: var(--space-4); border-top: 1px solid var(--color-border);
+  }
+  .vias li:last-child { border-bottom: 1px solid var(--color-border); }
+  .vias a { font-size: var(--fs-body-lg); overflow-wrap: anywhere; }
+
+  @media (max-width: 520px) {
+    .vias li { grid-template-columns: 1fr; gap: var(--space-1); }
+  }
+</style>
